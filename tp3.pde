@@ -1,59 +1,65 @@
-//https://youtu.be/pu6AZanX2c4
+
+//https://youtu.be/WmPv2TWb6lo
+//Delfina Ortega
 
 
 
 
 
-
-PImage foto2;
-int tamCuadrado;
+PImage art1;                                                          
+int numero = 10; // cuadrados y circulos             
+int tamaño = 40; // Tamaño de cuadrado
+color negro;
+color blanco;
 
 void setup() {
   size(800, 400);
-  background(255);
-  foto2 = loadImage("foto2.jpg");
-  noLoop(); // Detener el bucle
-  tamCuadrado = (width - 400) / 20; // primer tamaño de los cuadrados
+  
+ art1 = loadImage ( "art1.jpg" );
+ negro= color (0);
+ blanco = color (255);
 }
 
 void draw() {
-  image(foto2, 0, 0, width / 2, height);
+  image (art1, 0, 0);
+  println (mouseX + " / " + mouseY);
 
-  int numCua = 20; // Número de cuadrados
+int pantalla = width/2;
+ for (int i = 0; i < numero; i++) {
+    for (int j = 0; j < numero; j++) {
+      int x = j * tamaño + pantalla;
+      int y = i * tamaño;
+    dibujarCuadrado (i, j);
+    
+    float nuevoTamaño = calcularTamaño(x + tamaño / 2, y + tamaño / 2);
 
-  for (int i = numCua; i > 0; i--) {
-    // Determina el color
-    fill(i % 2 == 0 ? 0 : 255);
-
-    // posición x e y
-    int x = 400 + (width - 400 - (i * tamCuadrado)) / 2;
-    int y = (height - (i * tamCuadrado)) / 2;
-
-    rect(x, y, i * tamCuadrado, i * tamCuadrado); // Dibuja cada cuadrado
-
-    if (y == height / 2) {
-      fill(i % 2 == 0 ? 255 : 0);
-      rect(x, y, tamCuadrado, tamCuadrado); // Franja horizontal
+   
+      // Dibujar el círculo
+      if ((i + j) % 2 == 0) fill(blanco); 
+      else fill(negro); 
+      
+    ellipse(x + tamaño/2, y + tamaño/2, nuevoTamaño, nuevoTamaño);}
+ 
     }
-  }
 }
 
-void mousePressed() {
-  // Cambian los cuadrados
-  int nuevotamCu = int(random(10, 50));
-  tamCuadrado = nuevotamCu;
-  redraw(); // reinicia el dibujos
-}
-
-void keyPressed() {
-  // Reinicia la animación presionando una tecla
-  setup();
+void mousePressed () {
+ negro = color(random(400), random(500), random(600));
+ blanco = color(random (255), random (255), random (255));
+ 
+ 
   redraw(); // reinicia el dibujo
-}
-float calcularDistancia(float x1, float y1, float x2, float y2) {
-  return dist(x1, y1, x2, y2);
+
+  
 }
 
-float mapearValor(float valor, float valorMin, float valorMax, float nuevoMin, float nuevoMax) {
-  return map(valor, valorMin, valorMax, nuevoMin, nuevoMax);
-}
+void keyPressed (){
+    setup();
+   
+ 
+   tamaño = 60;
+   numero = 30;
+   negro = color(0);
+   blanco = color (255);
+   } 
+ 
